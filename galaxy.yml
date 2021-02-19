@@ -1,0 +1,9 @@
+---
+- hosts: galaxy
+  become: yes
+  gather_facts: false
+  pre_tasks:
+    - name: Gathering Facts
+      setup:
+  roles:
+    - role: laniakea.galaxy 

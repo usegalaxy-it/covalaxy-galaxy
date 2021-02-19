@@ -1,0 +1,4 @@
+GALAXY_ADMIN_USERNAME: "changeit"
+GALAXY_ADMIN_PASSWORD: "changeit"
+GALAXY_ADMIN_API_KEY: "changeit"
+GALAXY_ADMIN_EMAIL: "changeit@admin.com"
