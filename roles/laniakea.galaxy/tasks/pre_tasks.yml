@@ -1,0 +1,30 @@
+---
+
+- name: '[Ubuntu] Install Galaxy Dependencies'
+  package:
+    name: ['git', 'make', 'python3-psycopg2', 'virtualenv']
+  when: ansible_os_family == "Debian"
+
+- name: '[EL] Install Galaxy Dependencies'
+  package:
+    name: ['git', 'make', 'python-psycopg2', 'libselinux-python', 'bzip2', 'python3']
+  when: ansible_os_family == "RedHat"
+
+- name: '[EL] Install virtualenv for python3'
+  command: /usr/bin/pip3 install virtualenv 
+  when: ansible_os_family == "RedHat"
+
+- name: '[EL] Disable SELinux'
+  selinux:
+    state: disabled
+  when: ansible_os_family == "RedHat"
+
+- name: 'User rules for {{ laniakea_galaxy_user.name }} to allow no passwd for sudo'
+  lineinfile:
+    dest: '/etc/sudoers'
+    state: present
+    line: '{{ laniakea_galaxy_user.name }} ALL=(ALL) NOPASSWD:ALL'
+    insertafter: EOF
+  vars:
+   ansible_python_interpreter: /usr/bin/python
+

@@ -1,2 +1,2 @@
 [galaxy]
-localhost ansible_connection=ssh ansible_user=root
+90.147.75.3 ansible_connection=ssh ansible_user=root

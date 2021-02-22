@@ -1,0 +1,54 @@
+---
+
+- name: '[EL] centos specific vars'
+  include_vars: vars-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Install dependencies 
+  import_tasks: pre_tasks.yml
+
+- name: Include postgresql-roles
+  import_tasks: postgresql_objects.yml
+
+- name: include pip role
+  import_tasks: pip_role.yml
+
+- name: include galaxy role
+  include: install_galaxy.yml 
+ 
+- name: Include miniconda role run by galaxy user
+  import_tasks: miniconda.yml
+  become: yes
+  become_user: galaxy
+
+- name: Include systemd role
+  import_tasks: systemd.yml
+
+- name: Include nginx role
+  import_tasks: nginx.yml
+
+- name: Include proftpd role
+  import_tasks: proftpd.yml
+  become: yes
+  become_user: root
+
+# Start the Galaxy production environment.
+# The Galaxy DB is now populated at startup, therefore we need to start it before user creation.
+# See here: https://github.com/galaxyproject/ansible-galaxy/pull/112
+# The old task to populate the database is here: https://github.com/indigo-dc/ansible-role-galaxycloud/blob/master/tasks/postgresql.yml
+
+- meta: flush_handlers
+
+- name: '[VM] Wait Galaxy'
+  wait_for:
+    host: 127.0.0.1
+    port: '4010'
+    timeout: 300
+
+- name: create admin user
+  include: admin_user.yml
+
+- name: install tools and wf 
+  become: yes
+  import_tasks: install_tools_wf.yml
+  when: debug 
