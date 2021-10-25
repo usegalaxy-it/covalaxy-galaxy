@@ -14,5 +14,7 @@
   version: 0.1.2
 - src: galaxyproject.proftpd
   version: 0.3.0
+- src: usegalaxy-eu.remap-user
+  version: master
 - src: laniakea.galaxy
   version: master

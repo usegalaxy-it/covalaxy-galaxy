@@ -6,5 +6,6 @@
     - name: Gathering Facts
       setup:
   roles:
-    ## install galaxy
-    - role: laniakea.galaxy 
+    ## remap user
+    ## run it 1 time only
+    - role: usegalaxy-eu.remap-user 

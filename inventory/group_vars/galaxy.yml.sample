@@ -1,0 +1,12 @@
+export_dir: "/data/share"
+GALAXY_ADMIN_USERNAME: "changeit"
+GALAXY_ADMIN_PASSWORD: "changeit"
+GALAXY_ADMIN_API_KEY: "changeit"
+GALAXY_ADMIN_EMAIL: "changeit"
+
+# Galaxy instance description
+galaxy_instance_description: "Covalaxy test"
+
+# User to launch the Galaxy portal
+laniakea_galaxy_user: {name: galaxy, shell: /bin/bash, uid: 999}
+laniakea_galaxy_group: {name: galaxy, gid: 999}
